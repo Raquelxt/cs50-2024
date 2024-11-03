@@ -13,10 +13,7 @@ You can play **Ocean Outrun** directly on Scratch:
 [Play on Scratch](https://scratch.mit.edu/projects/1069178900)
 
 ## Installation
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/Raquelxt/ocean-outrun.git
-   ```
+1. Download the `.sb3` file.
 2. Open the game in [Scratch](https://scratch.mit.edu/) by importing the `.sb3` file.
 
 ## How to Play
