@@ -1,0 +1,99 @@
+#include <cs50.h>
+#include <ctype.h>
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
+
+// Function declarations
+int count_letters(string text, int length);
+int count_words(string text, int length);
+int count_sentences(string text, int length);
+
+int main(void)
+{
+    // Ask the user for input text
+    string text = get_string("Text: ");
+    int length = strlen(text);
+
+    // Count the letters in the text
+    int letters = count_letters(text, length);
+    printf("The number of letters is %i.\n", letters);
+
+    // Count the words in the text
+    int words = count_words(text, length);
+    printf("The number of words is %i.\n", words);
+
+    // Count the sentences in the text
+    int sentences = count_sentences(text, length);
+    printf("The number of sentences is %i.\n", sentences);
+
+    // Compute the Coleman-Liau index using the formula
+    float L = (float) letters / words * 100;     // Average letters per 100 words
+    float S = (float) sentences / words * 100;   // Average sentences per 100 words
+    float index = 0.0588 * L - 0.296 * S - 15.8; // Calculate Coleman-Liau index
+
+    // Round the index to the nearest integer
+    int result = (int) round(index);
+
+    // Display the grade level based on the index
+    if (result < 1)
+    {
+        printf("Before Grade 1\n");
+    }
+    else if (result >= 16)
+    {
+        printf("Grade 16+\n");
+    }
+    else
+    {
+        printf("Grade %i\n", result);
+    }
+}
+
+// Count the number of letters in the text
+int count_letters(string text, int length)
+{
+    int letters = 0;
+
+    for (int i = 0; i < length; i++)
+    {
+        // Check if the character is a letter
+        if (isalpha(text[i]))
+        {
+            letters++;
+        }
+    }
+    return letters;
+}
+
+// Count the number of words in the text
+int count_words(string text, int length)
+{
+    int words = 1; // Start with 1 as the last word might not have a space
+
+    for (int i = 0; i < length; i++)
+    {
+        // Increment the word count when a space is encountered
+        if (text[i] == ' ')
+        {
+            words++;
+        }
+    }
+    return words;
+}
+
+// Count the number of sentences in the text
+int count_sentences(string text, int length)
+{
+    int sentences = 0;
+
+    for (int i = 0; i < length; i++)
+    {
+        // Increment the sentence count if a punctuation mark is found
+        if (text[i] == '.' || text[i] == '?' || text[i] == '!')
+        {
+            sentences++;
+        }
+    }
+    return sentences;
+}
